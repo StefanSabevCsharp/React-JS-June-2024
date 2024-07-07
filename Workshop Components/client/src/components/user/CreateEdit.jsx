@@ -1,12 +1,12 @@
-export default function CreateEdit() {
+export default function CreateEdit(props) {
     return (
         <div class="overlay">
-            <div class="backdrop"></div>
+            <div class="backdrop" onClick={props.close}></div>
             <div class="modal">
                 <div class="user-container">
                     <header class="headers">
                         <h2>Edit User/Add User</h2>
-                        <button class="btn close">
+                        <button class="btn close" onClick={props.close}>
                             <svg
                                 aria-hidden="true"
                                 focusable="false"
@@ -24,7 +24,7 @@ export default function CreateEdit() {
                             </svg>
                         </button>
                     </header>
-                    <form>
+                    <form onSubmit={props.create}>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="firstName">First name</label>
@@ -151,13 +151,14 @@ export default function CreateEdit() {
                             </div>
                         </div>
                         <div id="form-actions">
-                            <button id="action-save" class="btn" type="submit">
+                            <button id="action-save" class="btn" type="submit"  >
                                 Save
                             </button>
                             <button
                                 id="action-cancel"
                                 class="btn"
                                 type="button"
+                                onClick={props.close}
                             >
                                 Cancel
                             </button>

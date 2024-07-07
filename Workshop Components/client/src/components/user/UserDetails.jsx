@@ -1,14 +1,16 @@
+import formatDate from "../../utils/dateParser";
 
 
-export default function UserDetails() {
+export default function UserDetails(props) {
+    
     return (
         <div class="overlay">
-            <div class="backdrop"></div>
+            <div class="backdrop" onClick={props.close}></div>
             <div class="modal">
                 <div class="detail-container">
                     <header class="headers">
                         <h2>User Detail</h2>
-                        <button class="btn close">
+                        <button class="btn close" onClick={props.close}>
                             <svg
                                 aria-hidden="true"
                                 focusable="false"
@@ -37,33 +39,34 @@ export default function UserDetails() {
                         <div class="user-details">
                             <p>
                                 User Id:{" "}
-                                <strong>62bb0c0eda039e2fdccba57b</strong>
+                                <strong>{props.user._id}</strong>
                             </p>
                             <p>
                                 Full Name:
-                                <strong> Peter Johnson </strong>
+                                <strong> {props.user.firstName} {props.user.lastName} </strong>
                             </p>
                             <p>
-                                Email: <strong>peter@abv.bg</strong>
+                                Email: <strong>{props.user.email}</strong>
                             </p>
                             <p>
-                                Phone Number: <strong>0812345678</strong>
+                                Phone Number: <strong>{props.user.phoneNumber}</strong>
                             </p>
                             <p>
                                 Address:
                                 <strong>
                                     {" "}
-                                    Bulgaria, Sofia, Aleksandar Malinov 78{" "}
+                                    {Object.values(props.user.address).join(", ")}
+                                   
                                 </strong>
                             </p>
 
                             <p>
                                 Created on:{" "}
-                                <strong>Wednesday, June 28, 2022</strong>
+                                <strong>{formatDate(props.user.createdAt)}</strong>
                             </p>
                             <p>
                                 Modified on:{" "}
-                                <strong>Thursday, June 29, 2022</strong>
+                                <strong>{formatDate(props.user.updatedAt)}</strong>
                             </p>
                         </div>
                     </div>
