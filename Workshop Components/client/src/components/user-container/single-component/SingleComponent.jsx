@@ -33,7 +33,7 @@ export default function SingleComponent(props) {
                         ></path>
                     </svg>
                 </button>
-                <button className="btn delete-btn" title="Delete">
+                <button className="btn delete-btn" title="Delete" onClick={() => props.prepareDelete(props._id)}>
                     <svg
                         aria-hidden="true"
                         focusable="false"

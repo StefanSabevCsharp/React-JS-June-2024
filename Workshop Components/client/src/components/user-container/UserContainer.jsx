@@ -11,18 +11,18 @@ export default function UserContainer() {
     const [create, setCreate] = useState(false);
     const [view, setView] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [userDelete, setDelete] = useState(false);
+    const [userToDelete, setUserToDelete] = useState(null);
+    const [showDeleteModal, setShowDeleteModal] = useState(false); 
 
     const baseUrl = "http://localhost:3030/jsonstore/users";
+
     useEffect(() => {
-        // TO DO Add error handling ....
         fetch(baseUrl)
             .then((res) => res.json())
             .then((data) => {
                 setUsers(Object.values(data));
             });
     }, []);
-
 
     const createClickHandler = () => {
         setCreate(true);
@@ -31,6 +31,7 @@ export default function UserContainer() {
     const closeModal = () => {
         setCreate(false);
         setView(false);
+        setShowDeleteModal(false);
     };
 
     const createUser = (e) => {
@@ -51,6 +52,8 @@ export default function UserContainer() {
                 streetNumber: formData.get("streetNumber"),
             },
         };
+
+        // POST request to create new user
         fetch(baseUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -69,6 +72,26 @@ export default function UserContainer() {
         setView(true);
     };
 
+    const prepareDelete = (id) => {
+        
+        const userToDelete = users.find(user => user._id === id);
+        setUserToDelete(userToDelete);
+        setShowDeleteModal(true);
+    };
+
+    const deleteUser = (id) => {
+        fetch(`${baseUrl}/${id}`, {
+            method: "DELETE",
+        })
+            .then(() => {
+                setUsers((prevState) => prevState.filter(user => user._id !== id));
+                setShowDeleteModal(false);
+            })
+            .catch(error => {
+                console.error('Error deleting user:', error);
+            });
+    };
+
     return (
         <>
             <Search />
@@ -76,11 +99,12 @@ export default function UserContainer() {
                 users={users}
                 createClickHandler={createClickHandler}
                 viewDetails={viewDetails}
+                prepareDelete={prepareDelete}
             />
             <Pagination />
             {view && <UserDetails user={selectedUser} close={closeModal} />}
             {create && <CreateEdit close={closeModal} create={createUser} />}
-            {userDelete && <UserDelete />}
+            {showDeleteModal && <UserDelete deleteUser={() => deleteUser(userToDelete._id)} close={closeModal} />}
         </>
     );
 }

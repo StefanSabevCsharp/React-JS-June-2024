@@ -1,12 +1,12 @@
-export default function UserDelete() {
+export default function UserDelete(props) {
     return (
         <div class="overlay">
-            <div class="backdrop"></div>
+            <div class="backdrop" onClick={props.close}></div>
             <div class="modal">
                 <div class="confirm-container">
                     <header class="headers">
                         <h2>Are you sure you want to delete this account?</h2>
-                        <button class="btn close">
+                        <button class="btn close" onClick={props.close}>
                             <svg
                                 aria-hidden="true"
                                 focusable="false"
@@ -26,13 +26,14 @@ export default function UserDelete() {
                     </header>
                     <div class="actions">
                         <div id="form-actions">
-                            <button id="action-save" class="btn" type="submit">
+                            <button id="action-save" class="btn" type="submit" onClick={props.deleteUser}>
                                 Delete
                             </button>
                             <button
                                 id="action-cancel"
                                 class="btn"
-                                type="button"
+                                type="button" 
+                                onClick={props.close}
                             >
                                 Cancel
                             </button>
