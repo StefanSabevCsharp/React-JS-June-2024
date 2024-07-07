@@ -12,7 +12,7 @@ export default function ToDoList() {
             .then((data) => {
                 setTodos(Object.values(data));
             });
-    });
+    }, []);
 
     const changeStatusHandler = (id) => {
         const todo = todos.find(todo => todo._id === id);
