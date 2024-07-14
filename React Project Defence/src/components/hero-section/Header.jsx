@@ -9,15 +9,16 @@ const navigation = [
     { name: "Home", href: "/" },
     { name: "Catalog", href: "/catalog" },
     { name: "Search", href: "/search" },
-    { name: "My Profile", href: "/profile" },
     { name: "Create New", href: "/create" },
+    { name: "About", href: "/about" },
+    { name: "My Profile", href: "/profile" },
 ];
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <div className="bg-white">
+        
             <header className="absolute inset-x-0 top-0 z-50">
                 <nav
                     aria-label="Global"
@@ -55,12 +56,12 @@ export default function Header() {
                         ))}
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                        <a
-                            href="#"
+                        <Link
+                            to="/login"
                             className="text-sm font-semibold leading-6 text-gray-900"
                         >
                             Log in <span aria-hidden="true">&rarr;</span>
-                        </a>
+                        </Link>
                     </div>
                 </nav>
                 <Dialog
@@ -118,7 +119,5 @@ export default function Header() {
                 </Dialog>
             </header>
 
-            
-        </div>
     );
 }
