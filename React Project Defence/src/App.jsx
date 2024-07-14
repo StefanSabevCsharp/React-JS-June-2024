@@ -1,11 +1,16 @@
+import Footer from "./components/footer/Footer";
+import Header from "./components/hero-section/Header";
+import Home from "./components/home/Home";
+
 
 function App() {
-
-  return (
-    <>
-      <h1 className="underline">tailwind</h1>
-    </>
-  )
+    return (
+        <>
+            <Header />
+            <Home />
+            <Footer />
+        </>
+    );
 }
 
-export default App
+export default App;
