@@ -1,0 +1,40 @@
+{
+	"clothes": {
+		"01": {
+            "_id": "01",
+            "name": "Recipe 1",
+            "imgageUrl": "assets/lasagna.jpg"
+        },
+        "02": {
+            "_id": "02",
+            "name": "Recipe 2",
+            "imgageUrl": "assets/roast.jpg"
+        },
+        "03": {
+            "_id": "03",
+            "name": "Recipe 3",
+            "imgageUrl": "assets/fish.jpg"
+        }
+	},
+    "details": {
+        "01": {
+            "_id": "01",
+            "name": "Recipe 1",
+            "imgageUrl": "assets/lasagna.jpg",
+            "description": "This is a description of Recipe 1"
+        },
+        "02": {
+            "_id": "02",
+            "name": "Recipe 2",
+            "img": "assets/roast.jpg",
+            "description": "This is a description of Recipe 2"
+
+        },
+        "03": {
+            "_id": "03",
+            "name": "Recipe 3",
+            "img": "assets/fish.jpg",
+            "description": "This is a description of Recipe 3"
+        }
+    }
+}

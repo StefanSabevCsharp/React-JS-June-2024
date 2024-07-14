@@ -1,26 +1,4 @@
-// import { Route, Routes } from "react-router-dom";
-// import Footer from "./components/footer/Footer";
-// import Header from "./components/hero-section/Header";
-// import Home from "./components/home/Home";
-// import Catalog from "./components/catalog/Catalog";
 
-
-// function App() {
-//     return (
-//         <>
-//             <div className="bg-white ">
-//                 <Header />
-//                 <Routes>
-//                     <Route path="/" element={<Home />} />
-//                     <Route path="/catalog" element={<Catalog />} />
-//                 </Routes>
-//                 <Footer />
-//             </div>
-//         </>
-//     );
-// }
-
-// export default App;
 import { Route, Routes } from 'react-router-dom';
 import Footer from './components/footer/Footer';
 import Header from './components/hero-section/Header';
