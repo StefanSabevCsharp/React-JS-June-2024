@@ -1,40 +1,96 @@
 {
-	"clothes": {
-		"01": {
+    "clothes": {
+        "01": {
             "_id": "01",
-            "name": "Recipe 1",
-            "imgageUrl": "assets/lasagna.jpg"
+            "title": "Classic Denim Jacket",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVyWJt2yflijQYDA6bHJCmmQ_LkSCQji7UcA&usqp=CAU",
+            "createdAt": "2023-07-01T10:00:00Z",
+            "price": 70
         },
         "02": {
             "_id": "02",
-            "name": "Recipe 2",
-            "imgageUrl": "assets/roast.jpg"
+            "title": "Cashmere Sweater",
+            "imageUrl": "https://img.mytheresa.com/1094/1238/100/jpeg/catalog/product/66/P00823452.jpg",
+            "createdAt": "2023-07-02T11:00:00Z",
+            "price": 120
         },
         "03": {
             "_id": "03",
-            "name": "Recipe 3",
-            "imgageUrl": "assets/fish.jpg"
+            "title": "Leather Boots",
+            "imageUrl": "https://i.etsystatic.com/19464114/r/il/19cfbc/5573329894/il_fullxfull.5573329894_bltd.jpg",
+            "createdAt": "2023-07-03T12:00:00Z",
+            "price": 150
+        },
+        "04": {
+            "_id": "04",
+            "title": "Floral Summer Dress",
+            "imageUrl": "https://m.media-amazon.com/images/I/71ZARINFaeL._AC_UY1000_.jpg",
+            "createdAt": "2023-07-04T13:00:00Z",
+            "price": 50
+        },
+        "05": {
+            "_id": "05",
+            "title": "Athletic Sneakers",
+            "imageUrl": "https://i5.walmartimages.com/seo/Athletic-Works-Men-s-Core-Jogger-Shoes-Dark-Grey_bbce92a2-7088-4f86-8afc-f331e5feea10.10946516351b11772bd99e607ee652c3.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF",
+            "createdAt": "2023-07-05T14:00:00Z",
+            "price": 60
+        },
+        "06": {
+            "_id": "06",
+            "title": "Wool Scarf",
+            "imageUrl": "https://img01.ztat.net/article/spp-media-p1/747ee29d9b0e45dd9d793e98ad7819b8/c59692d3cc9248b48cde07dc11f3ef17.jpg?imwidth=762&filter=packshot",
+            "createdAt": "2023-07-06T15:00:00Z",
+            "price": 30
         }
-	},
+    },
     "details": {
         "01": {
             "_id": "01",
-            "name": "Recipe 1",
-            "imgageUrl": "assets/lasagna.jpg",
-            "description": "This is a description of Recipe 1"
+            "title": "Classic Denim Jacket",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVyWJt2yflijQYDA6bHJCmmQ_LkSCQji7UcA&usqp=CAU",
+            "description": "A classic denim jacket with a button-front closure.",
+            "createdAt": "2023-07-01T10:00:00Z",
+            "price": 70
         },
         "02": {
             "_id": "02",
-            "name": "Recipe 2",
-            "img": "assets/roast.jpg",
-            "description": "This is a description of Recipe 2"
-
+            "title": "Cashmere Sweater",
+            "imageUrl": "https://img.mytheresa.com/1094/1238/100/jpeg/catalog/product/66/P00823452.jpg",
+            "description": "A soft cashmere sweater in a light gray color.",
+            "createdAt": "2023-07-02T11:00:00Z",
+            "price": 120
         },
         "03": {
             "_id": "03",
-            "name": "Recipe 3",
-            "img": "assets/fish.jpg",
-            "description": "This is a description of Recipe 3"
+            "title": "Leather Boots",
+            "imageUrl": "https://i.etsystatic.com/19464114/r/il/19cfbc/5573329894/il_fullxfull.5573329894_bltd.jpg",
+            "description": "Brown leather boots with a sturdy sole.",
+            "createdAt": "2023-07-03T12:00:00Z",
+            "price": 150
+        },
+        "04": {
+            "_id": "04",
+            "title": "Floral Summer Dress",
+            "imageUrl": "https://m.media-amazon.com/images/I/71ZARINFaeL._AC_UY1000_.jpg",
+            "description": "A floral print summer dress with short sleeves.",
+            "createdAt": "2023-07-04T13:00:00Z",
+            "price": 50
+        },
+        "05": {
+            "_id": "05",
+            "title": "Athletic Sneakers",
+            "imageUrl": "https://i5.walmartimages.com/seo/Athletic-Works-Men-s-Core-Jogger-Shoes-Dark-Grey_bbce92a2-7088-4f86-8afc-f331e5feea10.10946516351b11772bd99e607ee652c3.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF",
+            "description": "A pair of white athletic sneakers with a comfortable fit.",
+            "createdAt": "2023-07-05T14:00:00Z",
+            "price": 60
+        },
+        "06": {
+            "_id": "06",
+            "title": "Wool Scarf",
+            "imageUrl": "https://img01.ztat.net/article/spp-media-p1/747ee29d9b0e45dd9d793e98ad7819b8/c59692d3cc9248b48cde07dc11f3ef17.jpg?imwidth=762&filter=packshot",
+            "description": "A warm wool scarf in a dark green color.",
+            "createdAt": "2023-07-06T15:00:00Z",
+            "price": 30
         }
     }
 }

@@ -8,7 +8,9 @@ import Search from './components/search/Search';
 import Create from './components/create/Create';
 import About from './components/about/About';
 import Profile from './components/profile/Profile';
-import Login from './components/login/Login';
+import Login from './components/authentication/Login';
+import SingleProduct from './components/catalog/SingleProduct';
+import Register from './components/authentication/Register';
 
 function App() {
     return (
@@ -17,12 +19,16 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/catalog" element={<Catalog />} />
+                <Route path="/catalog" element={<Catalog />}>
+                    <Route path=":id" element={<SingleProduct />} />
+                </Route>
                 <Route path="/search" element={<Search />} />
                 <Route path="/create" element={<Create />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/profile" element= {<Profile />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                {/* <Route path="*" element={<SingleProduct />} /> */}
             </Routes>
             <Footer />
         </div>

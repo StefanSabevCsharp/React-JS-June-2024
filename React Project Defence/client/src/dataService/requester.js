@@ -1,4 +1,4 @@
-import { displayError } from "../utils/notification.js";
+
 import { getUserData,clearUserData } from "./userData.js";
 
 async function requester(method,url,data){
@@ -40,7 +40,8 @@ async function requester(method,url,data){
     }catch(err){
         //to do add custom error handling base on the exam requirements
         
-        displayError(err.message);
+        // displayError(err.message);
+        console.error(err.message);
         throw err;
     }
     
