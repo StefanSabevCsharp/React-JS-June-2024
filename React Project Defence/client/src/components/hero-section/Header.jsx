@@ -56,12 +56,18 @@ export default function Header() {
                             </Link>
                         ))}
                     </div>
-                    <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+                    <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-5">
                         <Link
                             to="/login"
                             className="text-sm font-semibold leading-6 text-gray-900"
                         >
-                            Log in <span aria-hidden="true">&rarr;</span>
+                            Log in 
+                        </Link>
+                        <Link
+                            to="/register"
+                            className="text-sm font-semibold leading-6 text-gray-900"
+                        >
+                            Register 
                         </Link>
                     </div>
                 </nav>
@@ -73,14 +79,14 @@ export default function Header() {
                     <div className="fixed inset-0 z-50" />
                     <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                         <div className="flex items-center justify-between">
-                            <a href="#" className="-m-1.5 p-1.5">
+                            <Link to="/" className="-m-1.5 p-1.5">
                                 <span className="sr-only">Your Company</span>
                                 <img
                                     alt=""
-                                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                    src="../public/React-icon.svg.png"
                                     className="h-8 w-auto"
                                 />
-                            </a>
+                            </Link>
                             <button
                                 type="button"
                                 onClick={() => setMobileMenuOpen(false)}
@@ -107,12 +113,18 @@ export default function Header() {
                                     ))}
                                 </div>
                                 <div className="py-6">
-                                    <a
-                                        href="#"
+                                    <Link
+                                        to="/login"
                                         className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                     >
                                         Log in
-                                    </a>
+                                    </Link>
+                                    <Link
+                                        to="/register"
+                                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                    >
+                                        Register
+                                    </Link>
                                 </div>
                             </div>
                         </div>

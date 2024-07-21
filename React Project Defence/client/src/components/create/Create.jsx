@@ -17,14 +17,11 @@ export default function Create() {
         description: '',
         imageUrl: '',
         price: ''
-
-
     });
 
     const formsubmitHandler = async (e) => {
         e.preventDefault();
 
-        
         let errors = {};
 
         if (validator.isEmpty(item.title)) {
