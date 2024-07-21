@@ -1,7 +1,26 @@
+
+import { useContext } from "react";
+
+import useForm from "../../hooks/useForm";
+import SearchContext from "../../context/searchContext";
+
 export default function SearchInput() {
+    let setSearchParam = useContext(SearchContext);
+    const initialState = {
+        search: ""
+    }
+
+    const { form, changeHandler } = useForm(initialState);
+
+    const formSubmitHandler = (e) => {
+        e.preventDefault();
+        //TO DO error handling
+        setSearchParam(form.search);
+    }
+
     return (
         <div className="relative isolate px-6 pt-14 lg:px-8 mt-10" >
-            <form className="max-w-md mx-auto">
+            <form className="max-w-md mx-auto" onSubmit={formSubmitHandler}>
                 <label
                     htmlFor="default-search"
                     className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -31,6 +50,9 @@ export default function SearchInput() {
                         id="default-search"
                         className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Search ..."
+                        name="search"
+                        value={form.search}
+                        onChange={changeHandler}
                         required=""
                         style={{ color: "black" }}
                     />
