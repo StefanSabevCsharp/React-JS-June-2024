@@ -6,6 +6,7 @@ import validator from "validator";
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import useForm from '../../hooks/useForm';
+import formValidator from '../../../validations/formValidator';
 
 const BASE_URL = 'http://localhost:3030/jsonstore/clothes/clothes/';
 
@@ -35,33 +36,13 @@ export default function Create() {
     const formsubmitHandler = async (e) => {
         e.preventDefault();
        
-
-        let errors = {};
-
-        if (validator.isEmpty(form.title)) {
-            errors.title = 'Title is required';
-        }
-
-        if (validator.isEmpty(form.imageUrl)) {
-            errors.imageUrl = 'Image URL is required';
-        } else if (!validator.isURL(form.imageUrl)) {
-            errors.imageUrl = 'Invalid Image URL';
-        }
-
-        if (validator.isEmpty(form.price)) {
-            errors.price = 'Price is required';
-        } else if (!validator.isNumeric(form.price)) {
-            errors.price = 'Price must be a number';
-        }
-
-        if (validator.isEmpty(form.description)) {
-            errors.description = 'Description is required';
-        }
-
-        if (Object.keys(errors).length > 0) {
-            setErrors(errors);
+        
+        let errors = formValidator(form);
+        
+        if(Object.keys(errors).length > 0){
             //TO DO : display errors in modal
-            return;
+            console.log(errors);
+            return setErrors(errors);
         }
         try{
             const response = await post(BASE_URL, form);
