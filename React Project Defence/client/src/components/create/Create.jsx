@@ -5,6 +5,8 @@ import { post } from '../../dataService/requester';
 import validator from "validator";
 import { Navigate, useNavigate } from 'react-router-dom';
 
+import useForm from '../../hooks/useForm';
+
 const BASE_URL = 'http://localhost:3030/jsonstore/clothes/clothes/';
 
 
@@ -12,35 +14,47 @@ const BASE_URL = 'http://localhost:3030/jsonstore/clothes/clothes/';
 export default function Create() {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
-    const [item, setItem] = useState({
+    const initialState = {
         title: '',
         description: '',
         imageUrl: '',
-        price: ''
-    });
+        price: '',
+        createdAt: Date.now()
+    }
+    // const [item, setItem] = useState({
+    //     title: '',
+    //     description: '',
+    //     imageUrl: '',
+    //     price: '',
+    //     createdAt: Date.now()
+    // });
+    
+    const {form,changeHandler} = useForm(initialState);
+    
 
     const formsubmitHandler = async (e) => {
         e.preventDefault();
+       
 
         let errors = {};
 
-        if (validator.isEmpty(item.title)) {
+        if (validator.isEmpty(form.title)) {
             errors.title = 'Title is required';
         }
 
-        if (validator.isEmpty(item.imageUrl)) {
+        if (validator.isEmpty(form.imageUrl)) {
             errors.imageUrl = 'Image URL is required';
-        } else if (!validator.isURL(item.imageUrl)) {
+        } else if (!validator.isURL(form.imageUrl)) {
             errors.imageUrl = 'Invalid Image URL';
         }
 
-        if (validator.isEmpty(item.price)) {
+        if (validator.isEmpty(form.price)) {
             errors.price = 'Price is required';
-        } else if (!validator.isNumeric(item.price)) {
+        } else if (!validator.isNumeric(form.price)) {
             errors.price = 'Price must be a number';
         }
 
-        if (validator.isEmpty(item.description)) {
+        if (validator.isEmpty(form.description)) {
             errors.description = 'Description is required';
         }
 
@@ -50,7 +64,7 @@ export default function Create() {
             return;
         }
         try{
-            const response = await post(BASE_URL, item);
+            const response = await post(BASE_URL, form);
             navigate(`/catalog/${response._id}`);
         }catch(err){
             setErrors({message: err.message});
@@ -58,9 +72,6 @@ export default function Create() {
 
     };
 
-    const changeHandler = (e) => {
-        setItem({...item, [e.target.name]: e.target.value});
-    }
 
     return (
         <div className="flex justify-center">
@@ -78,7 +89,7 @@ export default function Create() {
                                         <input
                                             id="title"
                                             name="title"
-                                            value={item.title}
+                                            value={form.title}
                                             onChange={changeHandler}
                                             placeholder="Title..."
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -93,7 +104,7 @@ export default function Create() {
                                         <input
                                             id="image"
                                             name="imageUrl"
-                                            value={item.imageUrl}
+                                            value={form.imageUrl}
                                             onChange={changeHandler}
                                             placeholder="Image Url..."
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -109,7 +120,7 @@ export default function Create() {
                                             type="number"
                                             id="price"
                                             name="price"
-                                            value={item.price}
+                                            value={form.price}
                                             onChange={changeHandler}
                                             placeholder="123..."
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -125,7 +136,7 @@ export default function Create() {
                                             id="description"
                                             name="description"
                                             rows={3}
-                                            value={item.description}
+                                            value={form.description}
                                             onChange={changeHandler}
                                             placeholder="Description..."
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

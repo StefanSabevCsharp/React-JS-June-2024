@@ -11,7 +11,8 @@ const clothesUrl = "clothes/clothes";
 
 export default function Catalog() {
 
-    const products = useFetch(clothesUrl, []).reverse();
+    const products = Object.values(useFetch(clothesUrl, []));
+    console.log(Object.values(products));
 
     return (
         <div className="bg-white">

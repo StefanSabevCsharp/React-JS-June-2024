@@ -12,7 +12,7 @@ function useFetch(url,initialState) {
             async () => {
                 const responce = await fetch(`${baseUrl}/${url}`);
                 const data = await responce.json();
-                setData(Object.values(data));
+                setData(data);
             }
         )();
 

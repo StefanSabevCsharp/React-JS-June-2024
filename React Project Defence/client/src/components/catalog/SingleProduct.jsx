@@ -61,27 +61,18 @@
 // function classNames(...classes) {
 //     return classes.filter(Boolean).join(' ')
 // }
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { get } from "../../dataService/requester";
-const BASE_URL = 'http://localhost:3030/jsonstore/clothes/clothes/';
+import useFetch from "../../hooks/useFetch";
+
 
 export default function SingleProduct() {
-    const [product, setProduct] = useState({});
+    
     const productId = useParams()._id;
-    console.log(`id is ${productId}`);
-
-    useEffect(() => {
-        (
-            async () => {
-                const responce = await fetch(BASE_URL + productId);
-                
-                const data = await responce.json();
-                setProduct(data);
-            }
-        )();
-    }, []);
-    console.log(product);
+    const url = `clothes/clothes/${productId}`;
+    const product = useFetch(url, {});
+   console.log(product);
 
     return (
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 mt-8">
@@ -104,7 +95,7 @@ export default function SingleProduct() {
                             <p className="text-3xl tracking-tight text-gray-900 mt-2">${product.price}</p>
 
                             {/* Reviews */}
-                           
+
 
                             <form className="mt-4">
                                 <div className="flex space-x-2 mt-4">
@@ -129,9 +120,9 @@ export default function SingleProduct() {
                                     <p className="text-base text-gray-900">{product.description}</p>
                                 </div>
 
-                            
 
-                                
+
+
                             </div>
                         </div>
                     </div>

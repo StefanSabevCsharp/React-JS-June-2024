@@ -10,7 +10,7 @@ import SearchContext from "../../context/searchContext";
 export default function Search() {  
     const [searchParam, setSearchParam] = useState("");
 
-    let products = useFetch("clothes/clothes", []).reverse();
+    let products =Object.values(useFetch("clothes/clothes", []));
     
     if (searchParam) {
         products = products.filter((product) => product.title.toLowerCase().includes(searchParam.toLowerCase()));

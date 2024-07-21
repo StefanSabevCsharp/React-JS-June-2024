@@ -49,19 +49,9 @@ const url = 'clothes/clothes';
 
 
 export default function Latest() {
-  const data = useFetch(url, []);
-  const products = data.sort((a, b) => b.createdAt - a.createdAt).slice(0, 4).reverse();
-  // const [products, setProducts] = useState([]);
-  // useEffect(() => {
-  //   (
-  //     async () => {
-  //       const products = await get(BASE_URL);
-  //       const latestFourProducts = Object.values(products).sort((a,b) => b.createdAt - a.createdAt).slice(0,4);
-  //       setProducts(latestFourProducts);
-  //       console.log(latestFourProducts);
-  //     }
-  //   )();
-  // }, []);
+  
+  const data = Object.values(useFetch(url, []));
+  const products = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 4);
 
   return (
     <div className="bg-white">
