@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Latest from '../latest/Latest';
+import PromoSection from '../promo/PromoSection';
 
 export default function Home() {
     return (
@@ -56,6 +57,7 @@ export default function Home() {
                 </div>
             </div>
             <Latest />
+            <PromoSection />
         </>
     );
 }

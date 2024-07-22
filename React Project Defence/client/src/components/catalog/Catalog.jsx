@@ -13,8 +13,10 @@ const clothesUrl = "clothes/clothes";
 export default function Catalog() {
     const [productsPerPage, setProductsPerPage] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
+    const { data, loading } = useFetch(clothesUrl, []);
+    //TO DO : Add loading spinner
 
-    const products = Object.values(useFetch(clothesUrl, [])).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const products = Object.values(data).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
     
 
     const lastProductIndex = currentPage * productsPerPage;

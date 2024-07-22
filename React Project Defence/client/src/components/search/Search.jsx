@@ -12,8 +12,10 @@ export default function Search() {
     const [searchParam, setSearchParam] = useState("");
     const [productsPerPage, setProductsPerPage] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
+    const { data, loading } = useFetch("clothes/clothes", [])
+    //TO DO : Add loading spinner
 
-    let products = Object.values(useFetch("clothes/clothes", []));
+    let products = Object.values(data);
 
     if (searchParam) {
         products = products.filter((product) => product.title.toLowerCase().includes(searchParam.toLowerCase()));
