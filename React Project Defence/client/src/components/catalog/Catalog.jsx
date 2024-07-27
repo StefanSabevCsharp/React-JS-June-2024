@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { Link } from 'react-router-dom';
-import { get } from '../../dataService/requester';
-import useFetch from '../../hooks/useFetch';
 import Pagination from '../pagination/Pagination';
+import { useGetClothes } from '../../hooks/useClothes';
 
 
 
@@ -13,11 +12,11 @@ const clothesUrl = "clothes/clothes";
 export default function Catalog() {
     const [productsPerPage, setProductsPerPage] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
-    const { data, loading } = useFetch(clothesUrl, []);
-    //TO DO : Add loading spinner
 
-    const products = Object.values(data).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+    //  const products = Object.values(data).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
     
+    const data = useGetClothes();
+    const products = Object.values(data);
 
     const lastProductIndex = currentPage * productsPerPage;
     const firstProductIndex = lastProductIndex - productsPerPage;

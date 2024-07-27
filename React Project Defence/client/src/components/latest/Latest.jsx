@@ -43,15 +43,14 @@ import { useState, useEffect } from "react";
 import { get } from "../../dataService/requester";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
+import { useGetLatestClothes } from "../../hooks/useClothes";
 const BASE_URL = 'http://localhost:3030/jsonstore/clothes/clothes';
 const url = 'clothes/clothes';
 
 
 
 export default function Latest() {
-  const { data, loading } = useFetch(url, []);
-  //TO DO : Add loading spinner
-  const products = Object.values(data).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 4);
+const products = useGetLatestClothes();
 
   return (
     <div className="bg-white">
