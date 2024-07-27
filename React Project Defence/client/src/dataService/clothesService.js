@@ -7,3 +7,13 @@ export async function getAllClothes(){
     const data = await  get(`${baseUrl}/clothes`);
     return data;
 }
+
+export async function getSingleClothes(id){
+    const data = await get(`${baseUrl}/clothes/${id}`);
+    return data;
+}
+
+export async function createClothes(data){
+    const res = await post(`${baseUrl}/clothes`,data);
+    return res;
+}
