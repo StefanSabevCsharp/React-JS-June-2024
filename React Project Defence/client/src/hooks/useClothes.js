@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllClothes, getSingleClothes } from "../dataService/clothesService";
+import { createClothes, getAllClothes, getSingleClothes } from "../dataService/clothesService";
 
 
 export const useGetClothes = () => {
@@ -39,7 +39,9 @@ export const useGetLatestClothes = () => {
 }
 
 export const useCreateClothes = (data) => {
+    const newcloth = createClothes(data);
     
+    return newcloth;
     
 
 }
