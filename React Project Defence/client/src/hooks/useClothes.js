@@ -32,3 +32,14 @@ export const useGetSingleClothes = (id) => {
     return singleCloth;
 }
 
+export const useGetLatestClothes = () => {
+    const allClothes = useGetClothes();
+    const latestClothes = Object.values(allClothes).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0,4);
+    return latestClothes;
+}
+
+export const useCreateClothes = (data) => {
+    
+    
+
+}
