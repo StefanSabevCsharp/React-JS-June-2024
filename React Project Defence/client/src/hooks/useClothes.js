@@ -16,3 +16,19 @@ export const useGetClothes = () => {
 
     return clothes;
 }
+
+export const useGetSingleClothes = (id) => {
+    const [singleCloth,setSingleCloth] = useState({});
+
+    useEffect( () => {
+        (
+            async () => {
+                const data = await getSingleClothes(id);
+                setSingleCloth(data);
+            }
+        )();
+    },[]);
+
+    return singleCloth;
+}
+
