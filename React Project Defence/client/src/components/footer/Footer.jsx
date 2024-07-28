@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../../context/authContext";
 
 export default function Footer() {
+    const ctx = useContext(AuthContext);
     return (
         <footer className="relative bg-blueGray-200 pt-8 pb-6 border-t-2 border-gray-800 shadow-lg mt-8 p-4">
             <div className="container mx-auto px-4">
@@ -76,15 +79,29 @@ export default function Footer() {
                                             Search
                                         </Link>
                                     </li>
-                                    <li>
-                                        <Link
+                                    {ctx.isAuthenticated && (
+                                        <>
+                                            <li>
+                                                <Link
 
-                                            className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                                            to="/profile"
-                                        >
-                                            My Profile
-                                        </Link>
-                                    </li>
+                                                    className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                                                    to="/profile"
+                                                >
+                                                    My Profile
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+
+                                                    className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                                                    to="/create"
+                                                >
+                                                    Create new
+                                                </Link>
+                                            </li>
+                                        </>
+                                    )}
+
                                 </ul>
                             </div>
 
