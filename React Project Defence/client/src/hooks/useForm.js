@@ -12,10 +12,14 @@ function useForm(initialState,submitHandler) {
         submitHandler(form);
         setForm(initialState);
     }
+    const setFormState = (newState) => {
+        setForm(newState);
+    }
     return {
         form,
         changeHandler,
-        onSubmit
+        onSubmit,
+        setFormState
     }
 }
 
