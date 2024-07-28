@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { createClothes, getAllClothes, getSingleClothes } from "../dataService/clothesService";
+import { createClothes, getAllClothes, getSingleClothes, updateClothes } from "../dataService/clothesService";
+
 
 
 export const useGetClothes = () => {
@@ -44,4 +45,12 @@ export const useCreateClothes = (data) => {
     return newcloth;
     
 
+}
+
+export const useUpdateClothes = (productID,data) => {    
+   const promise = updateClothes(productID,data);
+    const res = promise.then((res) => {
+        console.log('in update');
+        console.log(res);
+    });
 }
