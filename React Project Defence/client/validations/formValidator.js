@@ -29,3 +29,39 @@ export default function formValidator(form) {
     return errors;
 
 }
+
+export const isValidRegistration = (form) => {
+    let errors = {};
+
+    if(validator.isEmail(form.email) === false){
+        errors.email = 'Invalid email';
+    }
+    if(validator.isEmpty(form.email)){
+        errors.email = 'Email is required';
+    }
+    if(validator.isEmpty(form.password)){
+        errors.password = 'Password is required';
+    }
+    if(validator.isEmpty(form.rePassword)){
+        errors.rePassword = 'Re-enter password';
+    }
+    if(form.password !== form.rePassword){
+        errors.rePassword = 'Passwords do not match';
+    }
+    return errors;
+}
+
+export const isValidLogin = (form) => {
+    let errors = {};
+
+    if(validator.isEmail(form.email) === false){
+        errors.email = 'Invalid email';
+    }
+    if(validator.isEmpty(form.email)){
+        errors.email = 'Email is required';
+    }
+    if(validator.isEmpty(form.password)){
+        errors.password = 'Password is required';
+    }
+    return errors;
+}
