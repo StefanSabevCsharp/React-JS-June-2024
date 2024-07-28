@@ -1,18 +1,24 @@
-import { useState, useEffect } from "react";
-import { getComments } from "../dataService/commentService";
+import { useEffect, useState } from "react";
+import { createComment , getComments } from "../dataService/commentService";
 
+export function useCreateComment() {
+    const commentCreateHandler = async (productID,comment) => {
+      const result =  await createComment(comment, productID);
+    return result;
+    }
+    return commentCreateHandler;
+}
 
-export const useGetComments = (productId) => {
-    const [comments,setComments] = useState([]);
-    
-    useEffect( () => {
-        (
-            async () => {
-                const data = await getComments(productId);
-                setComments(data);
-            }
-        )();
-    },[productId]);
+export function useGetComments(productId) {
+    const [comments, setComments] = useState([]);
 
-    return comments;
+    useEffect(() => {
+        async function fetchComments() {
+            const comments = await getComments(productId);
+            setComments(comments);
+        }
+        fetchComments();
+    }, [productId]);
+
+    return [comments, setComments];
 }
