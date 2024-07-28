@@ -65,3 +65,38 @@ export const isValidLogin = (form) => {
     }
     return errors;
 }
+
+export const isValidCreateClothes = (form) => {
+    let errors = {};
+
+    if(validator.isEmpty(form.title)){
+        errors.title = 'Title is required';
+    }
+    if(validator.isLength(form.title,{min:3}) === false){
+        errors.title = 'Title must be at least 3 characters';
+    }
+    if(validator.isEmpty(form.imageUrl)){
+        errors.imageUrl = 'Image URL is required';
+    }
+    if(validator.isURL(form.imageUrl) === false){
+        errors.imageUrl = 'Invalid Image URL';
+    }
+    if(validator.isEmpty(form.price)){
+        errors.price = 'Price is required';
+    }
+    if(validator.isNumeric(form.price) === false){
+        errors.price = 'Price must be a number';
+    }
+    if(form.price <= 0){
+        errors.price = 'Price must be a positive number';
+    }
+
+    if(validator.isEmpty(form.description)){
+        errors.description = 'Description is required';
+    }
+    if(validator.isLength(form.description,{min:10}) === false){
+        errors.description = 'Description must be at least 10 characters';
+    }
+
+    return errors;
+}
