@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import OwnListings from "../ownListings/OwnListings";
+import AuthContext from "../../context/authContext";
+import splitName from "../../utils/splitName";
 
 export default function Profile() {
+    const ctx = useContext(AuthContext);
     return (
         <>
             <div className="relative isolate px-6 pt-14 lg:px-8">
@@ -42,7 +46,7 @@ export default function Profile() {
                         <div className="mt-20 text-center  pb-12">
                             {" "}
                             <h1 className="text-4xl font-medium text-gray-700">
-                                Jessica Jones
+                            {splitName(ctx.email)}
                             </h1>{" "}
 
                         </div>{" "}
