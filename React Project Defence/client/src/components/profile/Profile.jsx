@@ -4,19 +4,22 @@ import OwnListings from "../ownListings/OwnListings";
 import splitName from "../../utils/splitName";
 import Photo from "../photo/Photo";
 import AuthContext from "../../context/authContext";
+import PhotoContext from "../../context/photoContext";
 
 
 
 export default function Profile() {
    
     const [click,setClick] = useState(false);
-    const [photoUrl,setPhotoUrl] = useState('');
+    // const [photoUrl,setPhotoUrl] = useState('');
+    const {photoUrl,setPhotoHandler : photoHandler} = useContext(PhotoContext);
     const ctx = useContext(AuthContext);
 
     const handleClick = () => setClick(!click);
     const closeModal = () => setClick(false);
     const setPhotoHandler = (url) => {
-        setPhotoUrl(url);
+        photoHandler(url);
+        //to do add photo to database
     };
 
     return (

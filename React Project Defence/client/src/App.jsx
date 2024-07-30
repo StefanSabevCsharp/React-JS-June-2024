@@ -18,6 +18,7 @@ import EditItem from './components/edit/EditItem';
 import NotFound from './components/not-found/NotFound';
 import { AuthProvider } from './context/authContext';
 import Delete from './components/delete/Delete';
+import { PhotoProvider } from './context/photoContext';
 
 
 
@@ -26,7 +27,7 @@ function App() {
 
     return (
         <AuthProvider>
-          
+          <PhotoProvider>
                 <div className="bg-blueGray-200 min-h-screen">
                     <Header />
                     <Routes>
@@ -45,7 +46,7 @@ function App() {
                     </Routes>
                     <Footer />
                 </div>
-            
+                </PhotoProvider>
         </AuthProvider>
     );
 }
