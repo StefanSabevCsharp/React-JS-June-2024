@@ -1,31 +1,64 @@
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 import useForm from "../../hooks/useForm";
+import { useLogin } from "../../hooks/useAuth";
+import { useContext, useState, useEffect } from "react";
+import AuthContext from "../../context/authContext";
+import { isValidLogin } from "../../../validations/formValidator";
+import ErrorMessage from "../error/ErrorMessage";
+import { setUserData } from "../../dataService/userData";
 
 export default function Login() {
+    const context = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [error, setError] = useState("");
     let initialState = {
         email: "",
         password: ""
     }
-    const {form , changeHandler} = useForm(initialState);
 
-    const formSubmitHandler = (e) => {
-        e.preventDefault();
-        
+    const submitHandler = async (data) => {
+        let errors = isValidLogin(data);
+        if (Object.keys(errors).length > 0) {
+            
+            return setError(Object.values(errors).join("\n"));
+        }
+
+        try {
+            const userData = await useLogin(data);
+            context.changeState(userData);
+            setUserData(userData);
+            navigate('/');
+        } catch (err) {
+            setError(err.message);
+        }
     }
+
+    const { form, changeHandler, onSubmit } = useForm(initialState, submitHandler);
+
+    useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => {
+                setError("");
+            }, 3000); 
+
+            return () => clearTimeout(timer);
+        }
+    }, [error]);
 
     return (
         <>
             <div className="relative isolate px-6 pt-14 lg:px-8">
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-
                         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                             Sign in to your account
                         </h2>
                     </div>
 
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                        <form action="#" method="POST" className="space-y-6" onSubmit={formSubmitHandler}>
+                        {error && <ErrorMessage error={error} />}
+                        <form className="space-y-6" onSubmit={onSubmit}>
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                     Email address
@@ -34,7 +67,7 @@ export default function Login() {
                                     <input
                                         id="email"
                                         name="email"
-                                        type="email"
+                                        
                                         value={form.email}
                                         onChange={changeHandler}
                                         required
@@ -49,7 +82,6 @@ export default function Login() {
                                     <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                                         Password
                                     </label>
-
                                 </div>
                                 <div className="mt-2">
                                     <input
@@ -89,3 +121,4 @@ export default function Login() {
         </>
     )
 }
+

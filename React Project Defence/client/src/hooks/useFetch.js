@@ -6,8 +6,13 @@ const baseUrl = `http://localhost:3030/jsonstore`;
 function useFetch(url,initialState) {
 
     const [data, setData] = useState(initialState);
+    const [toggle, setToggle] = useState(false);
     const [loading, setLoading] = useState(true);
     const abortController = new AbortController();
+
+    function refetch() {
+        setToggle(toggle => !toggle);
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -26,7 +31,11 @@ function useFetch(url,initialState) {
 
     }, [url]);
 
-    return {data,loading};
+    return {
+        data,
+        loading,
+        refetch
+    };
 }
 
 export default useFetch;

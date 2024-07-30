@@ -10,6 +10,7 @@ import AuthContext from '../../context/authContext';
 
 export default function EditItem() {
     const ctx = useContext(AuthContext);
+    
     const navigate = useNavigate();
     const initialState = {
         title: '',
@@ -21,13 +22,7 @@ export default function EditItem() {
     
     const { _id: productId } = useParams();
     const data = useGetSingleClothes(productId);
-    
-    useEffect(() => {
-        if (data) {
-            setFormState(data);
-        }
-    }, [data]);
-
+    const [productData, setProductData] = useState(null);
     const submitHandler = async (form) => {
        await updateClothes(productId,form);
          navigate(`/catalog/${productId}`);
@@ -38,9 +33,22 @@ export default function EditItem() {
 
     
      const isOwner = data._ownerId == ctx.userId && data._ownerId !== undefined;
-   console.log(`isOwner ${isOwner}`);
-     
   
+     
+    console.log(data);
+    useEffect(() => {
+        console.log('useEffect run', { data, productData });
+        if (data && !productData) {
+            setProductData(data);
+            setFormState({
+                title: data.title,
+                description: data.description,
+                imageUrl: data.imageUrl,
+                price: data.price
+            });
+        }
+    }, [data]);
+   
     return (
 
         <div className="flex justify-center">
