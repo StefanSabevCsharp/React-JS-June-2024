@@ -104,23 +104,33 @@ export const isValidCreateClothes = (form) => {
 
 
 
-const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
+const imageMimeTypes = [
+    'image/jpeg',       
+    'image/png',        
+    'image/gif',       
+    'image/webp',       
+    'image/svg+xml',    
+    'image/bmp',        
+    'image/tiff',       
+    'image/x-icon',    
+    'image/vnd.microsoft.icon', 
+    'image/heif',      
+    'image/heic',       
+    'image/avif'        
+  ];
 
 export const isImageUrl = async (url) => {
-    // Validate URL format
+ 
     if (!validator.isURL(url)) {
         return false;
     }
 
     try {
-        // Fetch the URL and check content type
-        const response = await fetch(url, { method: 'HEAD' }); // HEAD request to only fetch headers
+        const response = await fetch(url, { method: 'HEAD' }); 
         const contentType = response.headers.get('Content-Type');
 
-        // Check if the content type matches an image MIME type
         return imageMimeTypes.includes(contentType);
     } catch (error) {
-        // Handle errors (e.g., network issues)
         console.error('Error checking URL:', error);
         return false;
     }
