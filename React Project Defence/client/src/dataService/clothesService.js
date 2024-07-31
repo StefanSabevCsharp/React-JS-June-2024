@@ -45,3 +45,10 @@ export async function getLatestClothes(){
     }
 }
 
+export async function getOwnClothes(userId){
+    const relations = encodeURIComponent('author=_ownerId:users');
+    const url = `${baseUrl}clothes?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc&load=${relations}`;
+    const clothes = await get(url);
+    return clothes;
+}
+
