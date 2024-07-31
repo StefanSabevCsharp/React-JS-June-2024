@@ -10,3 +10,13 @@ export const createPhoto = async (photoUrl) => {
         return alert(err);
     }
 }
+
+export const getOwnPhotos = async (userId) => {
+    const relations = encodeURIComponent('author=_ownerId:users');
+    const url = `${baseUrl}?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc&load=${relations}`;
+ 
+    return await get(url).then(data => data);
+   
+    
+}
+
