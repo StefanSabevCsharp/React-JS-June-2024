@@ -1,54 +1,29 @@
-import { useState, useEffect, useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useContext, useState } from "react";
+import AuthContext from "../../context/authContext";
+import { useNavigate, useParams } from "react-router-dom";
 
-import useForm from '../../hooks/useForm';
-import { useGetSingleClothes } from '../../hooks/useClothes';
-import { updateClothes } from '../../dataService/clothesService';
-import { getUserId } from '../../dataService/userData';
-import AuthContext from '../../context/authContext';
+import {useGetSingleClothes} from "../../hooks/useClothes";
+import useForm from "../../hooks/useForm";
+import { updateClothes } from "../../dataService/clothesService";
 
 
 export default function EditItem() {
-    const ctx = useContext(AuthContext);
-    
-    const navigate = useNavigate();
-    const initialState = {
-        title: '',
-        description: '',
-        imageUrl: '',
-        price: '',
+const ctx = useContext(AuthContext);
+const {_id :productId} = useParams();
+const navigate = useNavigate();
+const [product] = useGetSingleClothes(productId);
 
-    }
-    
-    const { _id: productId } = useParams();
-    const data = useGetSingleClothes(productId);
-    const [productData, setProductData] = useState(null);
-    const submitHandler = async (form) => {
-       await updateClothes(productId,form);
-         navigate(`/catalog/${productId}`);
-       
-    }
+const submitHandler = async (form) => {
+    // to do error handling
+    await updateClothes(productId,form);
+    navigate(`/catalog/${product._id}`);
+}
 
-    const {form,changeHandler,onSubmit,setFormState} = useForm(initialState,submitHandler);
+const {form,changeHandler,onSubmit} = useForm(product,submitHandler,{reinitialize:true});
 
-    
-     const isOwner = data._ownerId == ctx.userId && data._ownerId !== undefined;
-  
-     
-    console.log(data);
-    useEffect(() => {
-        console.log('useEffect run', { data, productData });
-        if (data && !productData) {
-            setProductData(data);
-            setFormState({
-                title: data.title,
-                description: data.description,
-                imageUrl: data.imageUrl,
-                price: data.price
-            });
-        }
-    }, [data]);
-   
+
+     const isOwner = product._ownerId == ctx.userId && product._ownerId !== undefined;
+
     return (
 
         <div className="flex justify-center">
@@ -66,7 +41,7 @@ export default function EditItem() {
                                         <input
                                             id="title"
                                             name="title"
-                                            value={form.title || ''}
+                                            value={form.title}
                                             onChange={changeHandler}
                                             placeholder="Title..."
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -81,7 +56,7 @@ export default function EditItem() {
                                         <input
                                             id="image"
                                             name="imageUrl"
-                                            value={form.imageUrl || ''}
+                                            value={form.imageUrl}
                                             onChange={changeHandler}
                                             placeholder="Image Url..."
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -97,7 +72,7 @@ export default function EditItem() {
                                             type="number"
                                             id="price"
                                             name="price"
-                                            value={form.price || ''}
+                                            value={form.price}
                                             onChange={changeHandler}
                                             placeholder="123..."
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -113,7 +88,7 @@ export default function EditItem() {
                                             id="description"
                                             name="description"
                                             rows={3}
-                                            value={form.description || ''}
+                                            value={form.description}
                                             onChange={changeHandler}
                                             placeholder="Description..."
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -140,3 +115,45 @@ export default function EditItem() {
     );
 
 }
+
+
+
+// const initialState = {
+//     title: '',
+//     description: '',
+//     imageUrl: '',
+//     price: '',
+
+// }
+
+// export default function EditItem() {
+//     const ctx = useContext(AuthContext);
+//     const navigate = useNavigate();
+//     const { _id: productId } = useParams();
+//     const data = useGetSingleClothes(productId);
+//     const [productData, setProductData] = useState(null);
+//     const submitHandler = async (form) => {
+//        await updateClothes(productId,form);
+//          navigate(`/catalog/${productId}`);
+       
+//     }
+
+//     const {form,changeHandler,onSubmit,setFormState} = useForm(initialState,submitHandler);
+
+    
+//      const isOwner = data._ownerId == ctx.userId && data._ownerId !== undefined;
+  
+     
+//     console.log(data);
+//     useEffect(() => {
+//         console.log('useEffect run', { data, productData });
+//         if (data && !productData) {
+//             setProductData(data);
+//             setFormState({
+//                 title: data.title,
+//                 description: data.description,
+//                 imageUrl: data.imageUrl,
+//                 price: data.price
+//             });
+//         }
+//     }, [data]);

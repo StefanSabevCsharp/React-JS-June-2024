@@ -5,18 +5,19 @@ import useForm from '../../hooks/useForm';
 import { useCreateClothes } from '../../hooks/useClothes';
 import { isValidCreateClothes } from '../../../validations/formValidator';
 import ErrorMessage from '../error/ErrorMessage';
+const initialState = {
+    title: '',
+    description: '',
+    imageUrl: '',
+    price: '',
+
+}
 
 export default function Create() {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
 
-    const initialState = {
-        title: '',
-        description: '',
-        imageUrl: '',
-        price: '',
-
-    }
+   
     const submitHandler = (form) => {
         const errors = isValidCreateClothes(form);
         if (Object.keys(errors).length > 0) {

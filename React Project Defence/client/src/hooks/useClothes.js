@@ -17,7 +17,12 @@ export const useGetClothes = () => {
 }
 
 export const useGetSingleClothes = (id) => {
-    const [singleCloth,setSingleCloth] = useState([]);
+    const [singleCloth,setSingleCloth] = useState({
+        title: '',
+        description: '',
+        imageUrl: '',
+        price: ''
+    });
 
     useEffect( () => {
         (

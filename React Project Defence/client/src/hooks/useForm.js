@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function useForm(initialState,submitHandler) {
+function useForm(initialState, submitHandler, options = {reinitialize: false}) {
     const [form, setForm] = useState(initialState);
+
+    useEffect(() => {
+        if (options.reinitialize) {
+            setForm(initialState);
+        }
+    }, [initialState,options.reinitialize]);
 
     const changeHandler = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -12,14 +18,11 @@ function useForm(initialState,submitHandler) {
         submitHandler(form);
         setForm(initialState);
     }
-    const setFormState = (newState) => {
-        setForm(newState);
-    }
+
     return {
         form,
         changeHandler,
-        onSubmit,
-        setFormState
+        onSubmit
     }
 }
 

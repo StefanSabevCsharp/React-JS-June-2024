@@ -7,17 +7,18 @@ import AuthContext from "../../context/authContext";
 import formValidator, { isValidRegistration } from "../../../validations/formValidator";
 import ErrorMessage from "../error/ErrorMessage";
 import { setUserData } from "../../dataService/userData";
+const initialValues = {
+    email: "",
+    password: "",
+    rePassword: ""
+}
 
 export default function Register() {
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
     const [error, setError] = useState("");
 
-    const initialValues = {
-        email: "",
-        password: "",
-        rePassword: ""
-    }
+   
     const submitHandler = async (form) => {
         const errors = isValidRegistration(form);
         if (Object.keys(errors).length > 0) {

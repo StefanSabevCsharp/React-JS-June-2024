@@ -7,16 +7,17 @@ import AuthContext from "../../context/authContext";
 import { isValidLogin } from "../../../validations/formValidator";
 import ErrorMessage from "../error/ErrorMessage";
 import { setUserData } from "../../dataService/userData";
+let initialState = {
+    email: "",
+    password: ""
+}
+
 
 export default function Login() {
     const context = useContext(AuthContext);
     const navigate = useNavigate();
     const [error, setError] = useState("");
-    let initialState = {
-        email: "",
-        password: ""
-    }
-
+   
     const submitHandler = async (data) => {
         let errors = isValidLogin(data);
         if (Object.keys(errors).length > 0) {
