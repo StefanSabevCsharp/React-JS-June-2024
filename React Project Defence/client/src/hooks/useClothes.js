@@ -7,8 +7,13 @@ export const useGetClothes = () => {
     useEffect( () => {
         (
             async () => {
-                const data = await getAllClothes();
-                setClothes(data);
+                try{
+                    const data = await getAllClothes();
+                    setClothes(data);
+                }catch(err){
+                   return setClothes({error: err.message});
+                }
+                
             }
         )();
     },[]);
