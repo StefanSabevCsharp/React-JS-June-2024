@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext , useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 
 import AuthContext from "../../context/authContext";
@@ -8,32 +8,43 @@ import useForm from "../../hooks/useForm";
 
 import Comments from "./comments/Comments";
 import {useCreateComment, useGetComments} from "../../hooks/useComments";
+import Modal from "../../modal/Modal";
 
+const InitialValues = {
+    comment: ''
+}
 
 export default function SingleProduct() {
     const { userId, isAuthenticated ,email} = useContext(AuthContext);
     const { _id } = useParams();
     const navigate = useNavigate();
-
-    const InitialValues = {
-        comment: ''
-    }
-
     const createComment = useCreateComment();
     const [singleCloth, setSingleCloth] = useGetSingleClothes(_id);
     const [comments,setComments] = useGetComments(_id);
+    const [error,setError] = useState("");
 
     const submitHandler = async ({ comment }) => {
-       const newComment = await  createComment(_id, comment);
-       newComment.author = { email: email };
-       setComments( state => [...state,newComment]);
-        
+
+        if(comment.trim() === "" || comment.length < 2) {
+            setError("Comment must be at least 2 characters long");
+            return;
+        }
+      
+        try{
+            const newComment = await  createComment(_id, comment);
+            newComment.author = { email: email };
+            setComments( state => [...state,newComment]);
+        }catch(error){
+            setError(error.message);
+        }
+
     }
     const { form, changeHandler, onSubmit } = useForm(InitialValues, submitHandler);
 
     const isOwner = singleCloth._ownerId == userId && singleCloth._ownerId !== undefined;
     return (
         <>
+         {error && <Modal message={error} close={() => setError("")} />}
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 mt-8">
 
                 <div className="bg-white">

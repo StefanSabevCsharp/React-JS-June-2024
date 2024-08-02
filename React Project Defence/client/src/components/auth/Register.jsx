@@ -1,10 +1,10 @@
 import { useContext , useState , useEffect} from "react"; 
-
 import { Link, useNavigate } from "react-router-dom";
+
 import useForm from "../../hooks/useForm";
 import { useRegister } from "../../hooks/useAuth";
 import AuthContext from "../../context/authContext";
-import formValidator, { isValidRegistration } from "../../../validations/formValidator";
+import { isValidRegistration } from "../../../validations/formValidator";
 import ErrorMessage from "../error/ErrorMessage";
 import { setUserData } from "../../dataService/userData";
 const initialValues = {

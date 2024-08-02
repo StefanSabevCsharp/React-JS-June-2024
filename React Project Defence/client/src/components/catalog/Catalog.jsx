@@ -1,22 +1,28 @@
-import React, {useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../pagination/Pagination';
 import { useGetClothes } from '../../hooks/useClothes';
-
-
+import Modal from '../../modal/Modal';
 
 const clothesUrl = "clothes/clothes";
 
-
-
 export default function Catalog() {
-    const [productsPerPage, setProductsPerPage] = useState(8);
+    const [productsPerPage] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
+    const [error, setError] = useState('');
+    const [products, setProducts] = useState([]);
 
-    //  const products = Object.values(data).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
-    
     const data = useGetClothes();
-    const products = Object.values(data);
+    
+    useEffect(() => {
+        
+        if (data.error) {
+            setError(data.error);
+        } else {
+            setProducts(data);
+        }
+    }, [data]);
+    
 
     const lastProductIndex = currentPage * productsPerPage;
     const firstProductIndex = lastProductIndex - productsPerPage;
@@ -24,6 +30,7 @@ export default function Catalog() {
 
     return (
         <>
+        {error && <Modal message={error} close={() => setError('')} />}
             <div className="bg-white">
                 <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-12 lg:max-w-7xl lg:px-8 mt-8">
                     <h1 className="text-center mb-10 text-3xl sm:text-4xl font-bold leading-tight text-gray-900">Catalog</h1>
@@ -47,8 +54,8 @@ export default function Catalog() {
                     </div>
                 </div>
             </div>
-                <Pagination products={products} productsPerPage={productsPerPage} setCurrentPage={setCurrentPage} />
-           
+            <Pagination products={products} productsPerPage={productsPerPage} setCurrentPage={setCurrentPage} />
+
         </>
 
     );

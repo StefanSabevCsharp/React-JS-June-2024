@@ -1,5 +1,4 @@
 
-
 import { useContext, useEffect, useState } from "react";
 import OwnListings from "../ownListings/OwnListings";
 import splitName from "../../utils/splitName";
@@ -8,12 +7,14 @@ import AuthContext from "../../context/authContext";
 import PhotoContext from "../../context/photoContext";
 import { getOwnPhotos, createPhoto } from "../../dataService/photoService";
 import { getOwnClothes } from "../../dataService/clothesService";
+import Modal from "../../modal/Modal";
 
 export default function Profile() {
     const [click, setClick] = useState(false);
     const [photoUrl, setPhotoUrl] = useState('');
-    const [listings,setListings] = useState([]);
+    const [listings, setListings] = useState([]);
     const ctx = useContext(AuthContext);
+    const [error, setError] = useState('');
     const { setPhotoHandler: photoHandler } = useContext(PhotoContext);
 
     useEffect(() => {
@@ -24,20 +25,19 @@ export default function Profile() {
                     setPhotoUrl(photos[0].photoUrl);
                 }
             } catch (error) {
-                console.error('Error fetching photos:', error);
+                return setError('Error fetching user photo');
             }
         };
         fetchUserPhoto();
     }, [ctx.userId]);
-     
-    useEffect( () => {
+
+    useEffect(() => {
         const fetchListings = async () => {
             try {
                 const data = await getOwnClothes(ctx.userId);
-                console.log(data);
                 setListings(data);
             } catch (error) {
-                console.error('Error fetching listings:', error);
+                setError('Error fetching user listings');
             }
         };
         fetchListings();
@@ -49,14 +49,15 @@ export default function Profile() {
         try {
             await createPhoto({ photoUrl: url });
             photoHandler(url);
-            setPhotoUrl(url); 
+            setPhotoUrl(url);
         } catch (error) {
-            console.error('Error uploading photo:', error);
+            setError('Error uploading photo');
         }
     };
 
     return (
         <>
+            {error && <Modal message={error} close={() => setError('')} />}
             <div className="relative isolate px-6 pt-14 lg:px-8">
                 <div className="p-16">
                     <div className="p-8 bg-white shadow mt-24">
@@ -103,8 +104,8 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
-            <OwnListings  listings={listings}/>
-            {click && <Photo closeModal={closeModal} setPhoto={setPhotoHandler} />}
+            <OwnListings listings={listings} />
+            {click && <Photo closeModal={closeModal} setPhoto={setPhotoHandler} setError={setError} />}
         </>
     );
 }

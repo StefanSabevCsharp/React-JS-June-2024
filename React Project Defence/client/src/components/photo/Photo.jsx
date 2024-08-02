@@ -2,12 +2,12 @@ import { isImageUrl } from '../../../validations/formValidator';
 import useForm from '../../hooks/useForm';
 import styles from './style.module.css';
 
-export default function Photo({ closeModal , setPhoto }) {
+export default function Photo({ closeModal , setPhoto ,setError }) {
 
     const submitHandler = async (data) => {
         const result = await isImageUrl(data.url);
         if(!result){
-            alert('Invalid URL');
+            setError('Invalid URL');
             return;
         }
         setPhoto(data.url);

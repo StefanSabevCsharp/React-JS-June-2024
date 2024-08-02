@@ -7,14 +7,19 @@ import SearchInput from "./SearchInput";
 import SearchContext from "../../context/searchContext";
 import Pagination from "../pagination/Pagination";
 import { useGetClothes } from "../../hooks/useClothes";
+import Modal from "../../modal/Modal";
 
 
 export default function Search() {
     const [searchParam, setSearchParam] = useState("");
     const [productsPerPage, setProductsPerPage] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
+    const [error, setError] = useState("");
   
     let products = useGetClothes();
+    if(products.error){
+        setError(products.error);
+    }
 
     if (searchParam) {
         products = products.filter((product) => product.title.toLowerCase().includes(searchParam.toLowerCase()));
@@ -26,6 +31,7 @@ export default function Search() {
 
     return (
         <>
+        {error && <Modal message={error} close={() => setError('')} />}
             <SearchContext.Provider value={setSearchParam}>
                 <SearchInput />
                 <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-12 lg:max-w-7xl lg:px-8 mt-8">

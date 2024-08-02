@@ -131,7 +131,7 @@ export const isImageUrl = async (url) => {
 
         return imageMimeTypes.includes(contentType);
     } catch (error) {
-        console.error('Error checking URL:', error);
+        
         return false;
     }
 }

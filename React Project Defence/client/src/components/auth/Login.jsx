@@ -21,7 +21,6 @@ export default function Login() {
     const submitHandler = async (data) => {
         let errors = isValidLogin(data);
         if (Object.keys(errors).length > 0) {
-            
             return setError(Object.values(errors).join("\n"));
         }
 

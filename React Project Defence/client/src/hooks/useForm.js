@@ -16,13 +16,14 @@ function useForm(initialState, submitHandler, options = {reinitialize: false}) {
         e.preventDefault();
 
         submitHandler(form);
-        setForm(initialState);
+        // setForm(initialState);
     }
 
     return {
         form,
         changeHandler,
-        onSubmit
+        onSubmit,
+        setForm
     }
 }
 
