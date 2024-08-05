@@ -2,13 +2,12 @@ import { useContext , useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 
 import AuthContext from "../../context/authContext";
-
 import { useGetSingleClothes } from "../../hooks/useClothes";
 import useForm from "../../hooks/useForm";
-
 import Comments from "./comments/Comments";
 import {useCreateComment, useGetComments} from "../../hooks/useComments";
 import Modal from "../../modal/Modal";
+import DeleteModal from "../../modal/DeleteModal";
 
 const InitialValues = {
     comment: ''
@@ -19,9 +18,22 @@ export default function SingleProduct() {
     const { _id } = useParams();
     const navigate = useNavigate();
     const createComment = useCreateComment();
+    const [error,setError] = useState("");
+    const [deleteProduct,setDeleteProduct] = useState(false);
+    const deleteMessage = "Are you sure you want to delete this product ?";
+
     const [singleCloth, setSingleCloth] = useGetSingleClothes(_id);
     const [comments,setComments] = useGetComments(_id);
-    const [error,setError] = useState("");
+    
+    if(!singleCloth.title){
+        navigate("/404");
+    }
+    if(singleCloth.error){
+        setError(singleCloth.error);
+    }
+    if(comments.error){
+        setError(comments.error);
+    }
 
     const submitHandler = async ({ comment }) => {
 
@@ -31,20 +43,22 @@ export default function SingleProduct() {
         }
       
         try{
-            const newComment = await  createComment(_id, comment);
+            const newComment = await createComment(_id, comment);
             newComment.author = { email: email };
             setComments( state => [...state,newComment]);
+            setForm(InitialValues);
         }catch(error){
             setError(error.message);
         }
 
     }
-    const { form, changeHandler, onSubmit } = useForm(InitialValues, submitHandler);
+    const { form, changeHandler, onSubmit,setForm } = useForm(InitialValues, submitHandler);
 
     const isOwner = singleCloth._ownerId == userId && singleCloth._ownerId !== undefined;
     return (
         <>
          {error && <Modal message={error} close={() => setError("")} />}
+            {deleteProduct && <DeleteModal close={() => setDeleteProduct(!deleteProduct)} productId={_id}/>}
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 mt-8">
 
                 <div className="bg-white">
@@ -76,7 +90,7 @@ export default function SingleProduct() {
                                         </button>
                                         <button
                                             type="button"
-                                            onClick={() => navigate(`/delete/${singleCloth._id}`)}
+                                            onClick={() => setDeleteProduct(true)}
                                             className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                                         >
                                             Delete

@@ -32,7 +32,7 @@ export default function Create() {
                 const _id = res._id;
                 navigate(`/catalog/${_id}`);
             }).catch(err => {
-                console.log(`in create ${err}`);
+                setErrorMessage(err.message);
             });
         }catch(err){
             setErrorMessage(err.message);

@@ -14,8 +14,13 @@ export function useGetComments(productId) {
 
     useEffect(() => {
         async function fetchComments() {
-            const comments = await getComments(productId);
-            setComments(comments);
+            try{
+                const comments = await getComments(productId);
+                setComments(comments);
+            }catch(err){
+                setComments({error: err.message});
+            }
+            
         }
         fetchComments();
     }, [productId]);

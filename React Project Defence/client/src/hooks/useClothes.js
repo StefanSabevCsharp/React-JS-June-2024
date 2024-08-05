@@ -32,8 +32,13 @@ export const useGetSingleClothes = (id) => {
     useEffect( () => {
         (
             async () => {
-                const data = await getSingleClothes(id);
-                setSingleCloth(data);
+                try{
+                    const data = await getSingleClothes(id);
+                    setSingleCloth(data);
+                }catch(err){
+                    return setSingleCloth({error: err.message});
+                }
+                
             }
         )();
     },[]);
@@ -64,8 +69,6 @@ export const useCreateClothes = (data) => {
 export const useUpdateClothes = (productID,data) => {    
    const promise = updateClothes(productID,data);
     const res = promise.then((res) => {
-        console.log('in update');
-        console.log(res);
     });
 }
 
