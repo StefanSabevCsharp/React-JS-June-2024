@@ -39,6 +39,12 @@ export const isValidRegistration = (form) => {
     if (validator.isEmpty(form.email)) {
         errors.email = 'Email is required';
     }
+    if(validator.isLength(form.email,{min:10}) === false){
+        errors.email = 'Email must be at least 10 characters';
+    }
+    if(validator.isLength(form.password,{min:3}) === false){
+        errors.password = 'Password must be at least 3 characters';
+    }
     if (validator.isEmpty(form.password)) {
         errors.password = 'Password is required';
     }
