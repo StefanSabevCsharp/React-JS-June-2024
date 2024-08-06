@@ -19,6 +19,7 @@ import NotFound from './components/not-found/NotFound';
 import { AuthProvider } from './context/authContext';
 import Delete from './components/delete/Delete';
 import { PhotoProvider } from './context/photoContext';
+import PrivateGuard from './guards/PrivateGuard';
 
 
 
@@ -27,7 +28,7 @@ function App() {
 
     return (
         <AuthProvider>
-          <PhotoProvider>
+            <PhotoProvider>
                 <div className="bg-blueGray-200 min-h-screen">
                     <Header />
                     <Routes>
@@ -35,18 +36,20 @@ function App() {
                         <Route path="/catalog" element={<Catalog />} />
                         <Route path="/catalog/:_id" element={<SingleProduct />} />
                         <Route path="/search" element={<Search />} />
-                        <Route path="/create" element={<Create />} />
                         <Route path="/about" element={<About />} />
-                        <Route path="/profile" element={<Profile />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/edit/:_id" element={<EditItem />} />
-                        <Route path="/delete/:_id" element={<Delete />} />
                         <Route path="*" element={<NotFound />} />
+                        <Route element={<PrivateGuard />}>
+                            <Route path="/create" element={<Create />} />
+                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/edit/:_id" element={<EditItem />} />
+                            <Route path="/delete/:_id" element={<Delete />} />
+                        </Route>
                     </Routes>
                     <Footer />
                 </div>
-                </PhotoProvider>
+            </PhotoProvider>
         </AuthProvider>
     );
 }
