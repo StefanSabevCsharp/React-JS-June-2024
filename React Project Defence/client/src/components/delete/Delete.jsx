@@ -1,12 +1,25 @@
 import { Navigate, useParams } from "react-router-dom";
 import { useDeleteClothes } from "../../hooks/useClothes";
+import { useState } from "react";
+import Modal from "../../modal/Modal";
 
-export default  function Delete() {
+
+export default function Delete() {
     const productID = useParams()._id;
-    useDeleteClothes(productID);
-   
+    const [error, setError] = useState("");
 
-  return (
-    <Navigate to="/catalog" />
-  );
+    try {
+        useDeleteClothes(productID);
+
+    } catch (error) {
+        setError(error.message);
+    }
+
+
+    return (
+        <>
+            {error && <Modal message={error} close={() => setError("")} />}
+            <Navigate to="/catalog" />
+        </>
+    );
 }
