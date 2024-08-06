@@ -38,10 +38,8 @@ async function requester(method,url,data){
         
 
     }catch(err){
-        //to do add custom error handling base on the exam requirements
-        
         // displayError(err.message);
-        console.error(err.message);
+        console.error(`in requester ${err.message}`);
         throw err;
     }
     

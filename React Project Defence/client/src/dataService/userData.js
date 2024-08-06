@@ -4,7 +4,8 @@ function getUserData(){
 }
 
 function setUserData(userData){
-    localStorage.setItem('userData',JSON.stringify(userData));
+    const { password, ...restUserData } = userData;
+    localStorage.setItem('userData',JSON.stringify(restUserData));
 }
 
 function clearUserData(){

@@ -14,7 +14,6 @@ export default function SearchInput() {
 
     const formSubmitHandler = (e) => {
         e.preventDefault();
-        //TO DO error handling
         setSearchParam(form.search);
     }
 
