@@ -17,7 +17,7 @@ export default function Header() {
         { name: "Search", href: "/search" },
         { name: "About", href: "/about" },
         { name: "Create New", href: "/create" },
-        
+
     ];
 
     const authContext = useContext(AuthContext);
@@ -89,7 +89,7 @@ export default function Header() {
                         </Link>
                     </div>
                 )}
-              
+
             </nav>
             <Dialog
                 open={mobileMenuOpen}
@@ -132,20 +132,37 @@ export default function Header() {
                                     </Link>
                                 ))}
                             </div>
-                            <div className="py-6">
-                                <Link
-                                    to="/login"
-                                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                >
-                                    Log in
-                                </Link>
-                                <Link
-                                    to="/register"
-                                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                >
-                                    Register
-                                </Link>
-                            </div>
+                            {!authContext.isAuthenticated ? (
+                                <div className="py-6">
+                                    <Link
+                                        to="/login"
+                                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                    >
+                                        Log in
+                                    </Link>
+                                    <Link
+                                        to="/register"
+                                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                    >
+                                        Register
+                                    </Link>
+                                </div>)
+                                :
+                                (<div className="py-6">
+                                    <Link
+                                        to="/profile"
+                                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                    >
+                                        My Profile
+                                    </Link>
+                                    <button
+                                        onClick={authContext.logout}
+                                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>)}
+
                         </div>
                     </div>
                 </DialogPanel>
