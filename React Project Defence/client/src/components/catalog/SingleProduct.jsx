@@ -1,4 +1,4 @@
-import { useContext , useState } from "react";
+import { useContext , useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 
 import AuthContext from "../../context/authContext";
@@ -25,15 +25,19 @@ export default function SingleProduct() {
     const [singleCloth, setSingleCloth] = useGetSingleClothes(_id);
     const [comments,setComments] = useGetComments(_id);
     
-    if(!singleCloth.title){
-        navigate("/404");
-    }
-    if(singleCloth.error){
-        setError(singleCloth.error);
-    }
-    if(comments.error){
-        setError(comments.error);
-    }
+    useEffect(() => {
+        if (singleCloth.error) {
+            setError(singleCloth.error);
+        }
+
+        if (comments.error) {
+            setError(comments.error);
+        }
+
+        if (singleCloth.title === undefined || singleCloth.title === null) {
+            navigate("/404");
+        }
+    }, [singleCloth, comments]);
 
     const submitHandler = async ({ comment }) => {
 
@@ -143,20 +147,3 @@ export default function SingleProduct() {
 
     )
 }
-
-// const ctx = useContext(AuthContext);
-//     const _id = useParams()._id;
-//     const navigate = useNavigate();
-//     const product = useGetSingleClothes(_id);
-//     const comments = useGetComments(_id);
-
-//     const submitHandler = async (form) => {
-//          await createComment({ comment: form.comment, productId: _id });
-//    }
-
-//    const initialState = {
-//     comment: ''
-//    }
-//    const {form,changeHandler,onSubmit} = useForm(initialState,submitHandler);
-
-//    const isOwner = product._ownerId == ctx.userId && product._ownerId !== undefined;
