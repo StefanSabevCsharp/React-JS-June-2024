@@ -89,6 +89,7 @@ export default function Register() {
                                     <input
                                         name="password"
                                         type="password"
+                                        id="password"
                                         value={form.password}
                                         onChange={changeHandler}
                                         required
@@ -98,7 +99,7 @@ export default function Register() {
                                 </div>
                             </div><div>
                                 <div className="flex items-center justify-between">
-                                    <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                                    <label htmlFor="rePassword" className="block text-sm font-medium leading-6 text-gray-900">
                                         Repeat Password
                                     </label>
 
@@ -108,6 +109,7 @@ export default function Register() {
 
                                         name="rePassword"
                                         type="password"
+                                        id="rePassword"
                                         value={form.rePassword}
                                         onChange={changeHandler}
                                         required
